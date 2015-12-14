@@ -1,30 +1,33 @@
 import re
 def get_sentences():
-	text_list=(open("article_text3.txt","r").readlines())
-	text_string=str(text_list)
+	text_string=(open("article_text4.txt","r").read())
+	text_heading=(open("article_headline4.txt","r").read())
 	text_string=re.sub(r'[\s]+',' ',text_string)
 	text_string=re.sub(r'\s--\s',' ',text_string)
 	text_string=re.sub(r'\s\.\.\s?',' ',text_string)
-	text_string=re.sub(r'\[\'','',text_string)
-	text_string=re.sub(r'\\n\']','',text_string)
 	text_string=re.sub(r'\\\'','\'',text_string)
 	sentence_list=re.split(r'\s?[\.]\s',text_string)
 	for x in sentence_list:
 		if len(x)<=3:
 			sentence_list.remove(x)
 			continue
-	stopWords=getStopWordList()
-	sum=0
+	i=0
+	sc=[]#score array for particular text
 	for s in sentence_list:
-		s=s.lower()
-		words=s.split()
-		for w in words:
-			if w in stopWords:
-				words.remove(w)
-		print(s)
-		sum+=len(words)
-	print(sum)
+		sc.append(score_sentence(s,i,text_heading))
+		i+=1
 	return	
+def score_sentence(sen,i,heading):
+	stopWords=getStopWordList()
+	sen=sen.lower()
+	words=sen.split()
+	for w in words:
+		if w in stopWords:
+			words.remove(w)
+	# word_freq(w)
+	# sentence_position(w,i)
+	# title_feature(w,heading)
+	return
 def getStopWordList():
 	stopWords = []
 	fp = open("stopWordsFile.txt", 'r')
@@ -59,4 +62,5 @@ def sentence_position(i, size):
         return 0.15
     else:
         return 0
+
 get_sentences()
