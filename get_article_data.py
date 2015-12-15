@@ -11,7 +11,8 @@ def get_article_links(section_url):
 		f.write(x+'\n')
 	f.close()
 	return 
-c=get_article_links("http://timesofindia.indiatimes.com")
+if __name__ == '__main__':
+	get_article_links("http://timesofindia.indiatimes.com")
 
 
 

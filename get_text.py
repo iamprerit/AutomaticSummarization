@@ -20,7 +20,8 @@ def real_text(site_url,n):
 	f1.close()
 	f2.close()
 	return 
-get_article_text()
+if __name__ == '__main__':
+	get_article_text()
 
 
 
